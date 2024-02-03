@@ -8,11 +8,11 @@ import java.util.concurrent.ExecutionException;
 
 public class Producer {
     // Topic where the messages are sent
-    private static final  String MAIN_TOPIC = "compras.do.cliente";
+    public static final  String MAIN_TOPIC = "compras.do.cliente";
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        // FIrst i need to create a producer kafka responsible for producer new messages
+        // FIrst we need to create a producer kafka responsible for producer new messages
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties());
         // Here is my class responsible for recording of the messages (TOPIC, KEY (CLIENT CONSUMER), VALUE )
         ProducerRecord<String, String> record = new ProducerRecord<>(MAIN_TOPIC, "cliente-1", "compras:50reais");
@@ -30,7 +30,6 @@ public class Producer {
         // Sending the message with callback
         producer.send(record, callback).get();
     }
-
 
     // Properties responsible for configure the producer
     private static Properties properties() {
