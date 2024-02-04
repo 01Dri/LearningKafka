@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Producer {
     // Topic where the messages are sent
-    public static final  String MAIN_TOPIC = "compras.do.cliente";
+    public static final  String MAIN_TOPIC = "ecomerce.compras";
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
@@ -29,6 +29,14 @@ public class Producer {
 
         // Sending the message with callback
         producer.send(record, callback).get();
+
+
+        // Now we created 3 partitions of our main topic, and we will send 9 messages for each partition
+        // This messages will be consumed in each consumer on application, this is calling of parallelism
+        for (Integer i = 0; i < 3; i++) {
+            var newRecord = new ProducerRecord<>(MAIN_TOPIC, "cliente" + i, "compras:" + i + " reais");
+            producer.send(newRecord, callback).get();
+        }
     }
 
     // Properties responsible for configure the producer

@@ -1,7 +1,6 @@
 package org.example;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -35,7 +34,9 @@ public class Consumer {
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,  StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "consumo-cliente");
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,  "earliest");
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "ecomerce-teste"); // We can have many consumers with group id different
+
         return properties;
     }
 }
